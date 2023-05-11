@@ -50,18 +50,18 @@ def read_root():
 async def read_products(position_input: PositionInput, radius: Union[str, None] = None):
     user_position = dict(position_input.position)
     radius_int = int(radius)
-    products = []
+    gardens_near_user = []
 
-    def compute_distance(product):
-        product_distance_from_user = distance(
-            start_pos=user_position, dest_pos=product["position"]
+    def compute_distance(garden):
+        garden_distance_from_user = distance(
+            start_pos=user_position, dest_pos=garden["position"]
         )
-        return {**product, "distance": product_distance_from_user}
+        return {**garden, "distance": garden_distance_from_user}
 
-    def is_inside_radius(product_with_distance):
-        user_distance_from_product = product_with_distance["distance"]
-        return user_distance_from_product < radius_int
+    def is_inside_radius(garden_with_distance):
+        user_distance_from_garden = garden_with_distance["distance"]
+        return user_distance_from_garden < radius_int
 
-    products = filter(is_inside_radius, map(compute_distance, GARDENS))
+    gardens_near_user = filter(is_inside_radius, map(compute_distance, GARDENS))
     print(f"PYTHON: products sent to user with position {user_position}")
-    return list(products)
+    return list(gardens_near_user)

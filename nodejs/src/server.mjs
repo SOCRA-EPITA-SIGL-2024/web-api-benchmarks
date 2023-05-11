@@ -35,7 +35,7 @@ app.post("/v1/products", function (request, response) {
     console.log("NODEJS: products sent to user with position", userPosition);
     response.send(productsAroundUsers);
   } catch (e) {
-    console.log(`ERRO with /v1/products: ${e}`);
+    console.log(`ERROR with /v1/products: ${e}`);
     response.status = 500;
     response.send({ details: e });
   }

@@ -21,7 +21,6 @@ class GetProductSimulation extends Simulation {
   private val backendUrl: String = getEnvOrThrow("LOADTEST_BACKEND_URL")
   private val constantConcurrentUsersNumber: String = getEnvOrThrow("LOADTEST_CONSTANT_CONCURRENT_USERS")
   private val loadtestDuration: String = getEnvOrThrow("LOADTEST_DURATION")
-  private val numberOfProductCategories = 18
 
   private val httpProtocol = http
     .baseUrl(backendUrl)
@@ -76,16 +75,6 @@ class GetProductSimulation extends Simulation {
     rand.nextInt(4) + 1 // rand pause between 1 to 3 sec
   }
 
-  def getRandomLat: Double = {
-    val base: Double = 48.8115336
-
-    nextRandDouble(base)
-  }
-
-  def getRandomLong: Double = {
-    val base: Double = 2.3681119
-    nextRandDouble(base)
-  }
 
   private val post_header = Map(
     "Cache-Control" -> "no-cache",
