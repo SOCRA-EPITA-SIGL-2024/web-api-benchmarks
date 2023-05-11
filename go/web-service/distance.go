@@ -45,15 +45,16 @@ func haversine(srcLat float64, srcLng float64, dstLat float64, dstLng float64) f
 	    """
 */
 func distance(startPos position, destPos position) int {
-	distanceInMeters := haversine(startPos.lat, startPos.lng, destPos.lat, destPos.lng)
+	distanceInMeters := haversine(startPos.Lat, startPos.Lng, destPos.Lat, destPos.Lng)
 	return int(math.Round(distanceInMeters / 1000))
 }
 
 func (g *garden) checkDistance(userPosition position, radius int) []product {
-	productDistanceFromUser := distance(userPosition, g.position)
+
+	productDistanceFromUser := distance(userPosition, g.Position)
 
 	if productDistanceFromUser < radius {
-		return g.products
+		return g.Products
 	}
 	return []product{}
 }
