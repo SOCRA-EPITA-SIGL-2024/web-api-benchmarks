@@ -33,6 +33,14 @@ type garden struct {
 	Products []product `json:"products"`
 }
 
+type gardenWithDistance struct {
+	Title    string    `json:"title"`
+	Id       string    `json:"id"`
+	Position position  `json:"position"`
+	Products []product `json:"products"`
+	Distance int       `json:"distance"`
+}
+
 func loadDataset() []garden {
 	gardenJsonFilePath := os.Getenv("GARDENS_JSON_FILE_PATH")
 	content, err := os.ReadFile(gardenJsonFilePath)
@@ -79,12 +87,15 @@ func allProductAround(ctx *gin.Context) {
 		return
 	}
 
-	var products []product
+	var gardensMatched []gardenWithDistance
 
 	for _, garden := range gardens {
-		products = append(products, garden.checkDistance(userInput.Position, radius)...)
+		matchedGarden := garden.checkDistance(userInput.Position, radius)
+		if matchedGarden != nil {
+			gardensMatched = append(gardensMatched, *matchedGarden)
+		}
 	}
-	ctx.JSON(http.StatusOK, products)
+	ctx.JSON(http.StatusOK, gardensMatched)
 }
 
 func main() {

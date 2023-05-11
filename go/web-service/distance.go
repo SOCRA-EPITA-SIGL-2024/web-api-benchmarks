@@ -49,12 +49,18 @@ func distance(startPos position, destPos position) int {
 	return int(math.Round(distanceInMeters / 1000))
 }
 
-func (g *garden) checkDistance(userPosition position, radius int) []product {
+func (g *garden) checkDistance(userPosition position, radius int) *gardenWithDistance {
 
 	productDistanceFromUser := distance(userPosition, g.Position)
 
 	if productDistanceFromUser < radius {
-		return g.Products
+		return &gardenWithDistance{
+			Title:    g.Title,
+			Id:       g.Id,
+			Position: g.Position,
+			Products: g.Products,
+			Distance: productDistanceFromUser,
+		}
 	}
-	return []product{}
+	return nil
 }
