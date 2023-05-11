@@ -34,8 +34,8 @@ type garden struct {
 }
 
 func loadDataset() []garden {
-
-	content, err := os.ReadFile("./gardens.json")
+	gardenJsonFilePath := os.Getenv("GARDENS_JSON_FILE_PATH")
+	content, err := os.ReadFile(gardenJsonFilePath)
 	if err != nil {
 		fmt.Println("Error during Unmarshal(): ", err)
 	}
