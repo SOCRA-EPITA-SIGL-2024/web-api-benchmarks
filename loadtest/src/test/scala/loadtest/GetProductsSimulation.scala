@@ -94,7 +94,7 @@ class GetProductSimulation extends Simulation {
 
   private val scn = scenario("GetProductsSimulation")
     .feed(feeder)
-    .pause(nextRandomPause())
+    .pause(1)
     .exec(
       http("get-products")
         .post("/v1/products?radius=15")
